@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login and Signup Page</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to right, #3498db, #8e44ad);
+            background-image: url("purple.png") !important;
+            background-size: cover;/*Adjust the background size as needed */
+            background-repeat: no-repeat;
+        }
+
+        .glass-container {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 300px;
+            max-width: 100%;
+            text-align: center;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #2980b9;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            margin-top: 10px;
+        }
+
+        .switch-page {
+            color: #3498db;
+            text-decoration: none;
+            margin-top: 10px;
+            display: block;
+            cursor: pointer;
+        }
+
+        .switch-page:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Page -->
+    <div class="glass-container" id="loginContainer">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <input type="text" placeholder="Username" required>
+            <input type="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+        <button class="switch-page" onclick="switchPage('signupContainer')">Don't have an account? Signup here.</button>
+    </div>
+
+    <!-- Signup Page -->
+    <div class="glass-container" id="signupContainer" style="margin-top: 20px; display: none;">
+        <h2>Signup</h2>
+        <form id="signupForm">
+            <input type="text" placeholder="Username" id="signupUsername" required>
+            <input type="password" placeholder="Password" required>
+            <input type="password" placeholder="Confirm Password" required>
+            <button type="submit">Signup</button>
+            <p class="error-message" id="signupError"></p>
+        </form>
+        <button class="switch-page" onclick="switchPage('loginContainer')">Already have an account? Login here.</button>
+    </div>
+
+    <script>
+        function switchPage(pageId) {
+            document.getElementById('loginContainer').style.display = (pageId === 'loginContainer') ? 'block' : 'none';
+            document.getElementById('signupContainer').style.display = (pageId === 'signupContainer') ? 'block' : 'none';
+        }
+
+        document.getElementById('signupForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var username = document.getElementById('signupUsername').value;
+
+            // Check for special characters in the username
+            if (!/^[a-zA-Z0-9]+$/.test(username)) {
+                document.getElementById('signupError').innerText = 'Username can only contain letters and numbers.';
+                return;
+            }
+
+            var password = document.getElementById('signupForm').querySelector('input[type="password"]').value;
+            var confirmPassword = document.getElementById('signupForm').querySelector('input[type="password"]:last-of-type').value;
+
+            if (password !== confirmPassword) {
+                document.getElementById('signupError').innerText = 'Passwords do not match';
+            } else {
+                document.getElementById('signupError').innerText = '';
+                // Proceed with signup logic
+            }
+        });
+    </script>
+</body>
+</html>
