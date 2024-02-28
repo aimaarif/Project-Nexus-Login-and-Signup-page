@@ -64,7 +64,7 @@
         }
 
         .error-message {
-            color: #e74c3c;
+            color: #970053;
             margin-top: 10px;
         }
 
@@ -85,7 +85,7 @@
     <!-- Login Page -->
     <div class="glass-container" id="loginContainer">
         <h2>Login</h2>
-        <form id="loginForm">
+        <form id="loginForm" action="login and signup.html">
             <input type="text" placeholder="Username" required>
             <input type="password" placeholder="Password" required>
             <button class="color" type="submit">Login</button>
@@ -96,7 +96,7 @@
     <!-- Signup Page -->
     <div class="glass-container" id="signupContainer" style="margin-top: 20px; display: none;">
         <h2>Signup</h2>
-        <form id="signupForm">
+        <form id="signupForm" action="login and signup.html">
             <input type="text" placeholder="Username" id="signupUsername" required>
             <input type="password" placeholder="Password" required>
             <input type="password" placeholder="Confirm Password" required>
@@ -106,32 +106,31 @@
         <button class="switch-page" onclick="switchPage('loginContainer')">Already have an account? Login here.</button>
     </div>
 
-    <script>
-        function switchPage(pageId) {
-            document.getElementById('loginContainer').style.display = (pageId === 'loginContainer') ? 'block' : 'none';
-            document.getElementById('signupContainer').style.display = (pageId === 'signupContainer') ? 'block' : 'none';
-        }
 
-        document.getElementById('signupForm').addEventListener('submit', function(event) {
-            event.preventDefault();
+<script>
+    document.getElementById('signupForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission behavior
+
             var username = document.getElementById('signupUsername').value;
-
-            // Check for special characters in the username
-            if (!/^[a-zA-Z0-9]+$/.test(username)) {
-                document.getElementById('signupError').innerText = 'Username can only contain letters and numbers.';
-                return;
-            }
-
             var password = document.getElementById('signupForm').querySelector('input[type="password"]').value;
             var confirmPassword = document.getElementById('signupForm').querySelector('input[type="password"]:last-of-type').value;
 
-            if (password !== confirmPassword) {
+            if (!/^[a-zA-Z0-9]+$/.test(username)) {
+                document.getElementById('signupError').innerText = 'Username can only contain letters and numbers.';
+            } else if (password !== confirmPassword) {
                 document.getElementById('signupError').innerText = 'Passwords do not match';
             } else {
                 document.getElementById('signupError').innerText = '';
                 // Proceed with signup logic
+                alert('Form submitted successfully!'); // Replace this with your actual submission logic
             }
+            window.location.href = 'login and signup.html';
         });
+
+        function switchPage(pageId) {
+            document.getElementById('loginContainer').style.display = (pageId === 'loginContainer') ? 'block' : 'none';
+            document.getElementById('signupContainer').style.display = (pageId === 'signupContainer') ? 'block' : 'none';
+        }
     </script>
-</body>
-</html>
+    </body>
+    </html>
